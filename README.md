@@ -49,6 +49,11 @@ npm install
 
 # 3. Fire up MongoDB (locally)
 mongod
+<img width="1280" height="714" alt="Screenshot 2025-09-05 at 9 28 27 AM" src="https://github.com/user-attachments/assets/1797eeec-d8c7-4254-a90f-2c26ec00e871" />
+<img width="1280" height="832" alt="Screenshot 2025-09-05 at 9 29 39 AM" src="https://github.com/user-attachments/assets/5a836cd4-526c-4998-8585-f1cbdb6f337a" />
+<img width="1280" height="718" alt="Screenshot 2025-09-05 at 9 28 41 AM" src="https://github.com/user-attachments/assets/26087302-7216-4aa3-9e5a-fe79008ca63d" />
+
+
 
 # 4. Start the server
 node app.js
