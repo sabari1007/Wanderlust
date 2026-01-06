@@ -102,6 +102,4 @@ app.use((err, req, res, next) => {
 	// res.status(statusCode).send(message);
 });
 
-app.listen(8082, () => {
-	console.log('server is listening to port 8080');
-});
+module.exports = app;

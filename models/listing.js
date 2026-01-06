@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema; // ✅ Define Schema before using it
+const Schema = mongoose.Schema;
 
 const Review = require('./review.js');
 
