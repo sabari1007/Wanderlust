@@ -30,10 +30,17 @@
             </div>
 
         <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
-            <input class="form-control me-2 search-inp" type="search" placeholder="Search Destinations">
-            <button class="btn search-btn" type="submit">Search</button>
+        <form class="d-flex" role="search" action="/listings/search" method="GET">
+        <input 
+        class="form-control me-2 search-inp"
+        type="search"
+        name="q"
+        placeholder="Search destinations"
+        value="<%= searchQuery ? searchQuery : '' %>"
+        >
+        <button class="btn search-btn" type="submit">Search</button>
         </form>
+
         </div>
             <div class="navbar-nav ms-auto">
             <a class="nav-link" href="/listings/new">Airbnb Your home</a>

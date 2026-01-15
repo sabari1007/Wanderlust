@@ -69,3 +69,20 @@ module.exports.deleteListing = async (req, res) => {
 	req.flash('success', ' Listing Deleted');
 	res.redirect('/listings');
 };
+
+module.exports.searchListings = async (req, res) => {
+	const { q } = req.query;
+
+	const listings = await Listing.find({
+		$or: [
+			{ title: { $regex: q, $options: 'i' } },
+			{ location: { $regex: q, $options: 'i' } },
+			{ country: { $regex: q, $options: 'i' } },
+		],
+	});
+
+	res.render('listings/index', {
+		allListings: listings,
+		searchQuery: null,
+	});
+};

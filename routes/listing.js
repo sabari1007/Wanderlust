@@ -22,6 +22,25 @@ router
 //New Route
 router.get('/new', isLoggedIn, listingController.renderNewForm);
 
+router.get('/search', async (req, res) => {
+	const { q } = req.query;
+
+	if (!q) {
+		req.flash('error', 'Please enter a search term');
+		return res.redirect('/listings');
+	}
+
+	const listings = await Listing.find({
+		$or: [
+			{ location: { $regex: q, $options: 'i' } },
+			{ country: { $regex: q, $options: 'i' } },
+			{ title: { $regex: q, $options: 'i' } },
+		],
+	});
+
+	res.render('listings/index.ejs', { allListings: listings, searchQuery: q });
+});
+
 router
 	.route('/:id')
 	.get(wrapAsync(listingController.ShowListing)) //show route
