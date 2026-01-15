@@ -102,4 +102,11 @@ app.use((err, req, res, next) => {
 	// res.status(statusCode).send(message);
 });
 
+if (process.env.NODE_ENV !== 'production') {
+	const port = 8082;
+	app.listen(port, () => {
+		console.log(`Local server running on port ${port}`);
+	});
+}
+
 module.exports = app;
