@@ -77,11 +77,15 @@ html {
   margin-bottom: 2rem;
 }
 
-.card-img-top{
-  border-radius: 1rem !important;
-  width: 100% !important;
-  object-fit: cover !important;
+.card-img-top {
+  height: 20rem;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  background-color: #eaeaea;
+  aspect-ratio: 4 / 3;
 }
+
 
 .card-body{
   padding: 0 !important;
