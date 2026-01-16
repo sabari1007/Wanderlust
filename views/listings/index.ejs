@@ -33,6 +33,38 @@
     align-items: center;
     display: flex;
   }
+  
+    .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .card-meta {
+    font-size: 0.85rem;
+    color: #717171;
+  }
+
+  .card-meta .dot {
+    margin: 0 4px;
+  }
+
+  .card-price {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #000;
+  }
+
+  .per-night {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #717171;
+  }
+
+  .tax-info {
+    font-size: 0.75rem;
+    color: #999;
+  }
+
 </style>
 
 <div id="filters">
@@ -112,10 +144,20 @@
       <img src="<%=listing.image.url%>" class="card-img-top" alt="listing_image" style="height: 20rem">
       <div class="card-img-overlay">a</div>
       <div class="card-body">
-        <p class="card-text">
-        <b><%= listing.title %> <br></b>
-        &#8377; <%= listing.price.toLocaleString("en-IN") %> / Night
-        <i class="tax-info"> &nbsp; &nbsp;+18% GST</i>
+        <p class="card-title mb-1">
+          <b><%= listing.title %></b>
+        </p>
+
+        <p class="card-meta mb-1">
+          ⭐ <%= listing.rating || "4.8" %>
+          <span class="dot">·</span>
+          📍 <%= listing.location %>
+        </p>
+
+        <p class="card-price mb-0">
+          &#8377; <%= listing.price.toLocaleString("en-IN") %>
+          <span class="per-night">/ night</span>
+          <span class="tax-info"> +18% GST</span>
         </p>
       </div>
     </div>
