@@ -122,11 +122,12 @@
         <div><i class="fa-solid fa-ship"></i></div>
         <p>Boats</p>
       </div>
-      <div class = "tax-switch">
-        <div class="form-check-reverse form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-          <label class="form-check-label" for="flexSwitchCheckDefault"> Display Total after Taxes</label>
-        </div>
+      <div class="price-toggle">
+        <label class="switch">
+          <input type="checkbox" id="gstToggle">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-text">Show price with GST</span>
       </div>
 </div>
 
@@ -154,11 +155,16 @@
           📍 <%= listing.location %>
         </p>
 
-        <p class="card-price mb-0">
-          &#8377; <%= listing.price.toLocaleString("en-IN") %>
+        <p class="card-price mb-0"
+          data-base="<%= listing.price %>"
+          data-gst="<%= Math.round(listing.price * 1.18) %>">
+          &#8377;
+          <span class="price-value">
+            <%= listing.price.toLocaleString("en-IN") %>
+          </span>
           <span class="per-night">/ night</span>
-          <span class="tax-info"> +18% GST</span>
         </p>
+
       </div>
     </div>
     </a>
@@ -181,5 +187,23 @@
         info.style.display = "none";
       }     
     }
+  });
+</script>
+
+
+<script>
+  const toggle = document.getElementById("gstToggle");
+
+  toggle.addEventListener("change", () => {
+    document.querySelectorAll(".card-price").forEach(priceEl => {
+      const valueEl = priceEl.querySelector(".price-value");
+
+      const base = priceEl.dataset.base;
+      const gst = priceEl.dataset.gst;
+
+      valueEl.textContent = toggle.checked
+        ? Number(gst).toLocaleString("en-IN")
+        : Number(base).toLocaleString("en-IN");
+    });
   });
 </script>
