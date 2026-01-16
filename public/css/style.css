@@ -81,12 +81,27 @@ body{
 
 /* Card Effect */
 .card-img-overlay{
+  pointer-events: none;
   opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.card-img-overlay:hover{
-  opacity: 0.2;
+.listing-card:hover .card-img-overlay {
+  opacity: 0.15;
   background-color: white;
+}
+
+.listing-card {
+  border: none !important;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.listing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
 }
 /* New Page */
 .add-btn{
