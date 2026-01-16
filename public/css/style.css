@@ -159,3 +159,31 @@ html {
   height : 400px;
   width : 80vh;
 }
+
+.categories {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.category-pill {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: #222;
+  border: 1px solid #ddd;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.category-pill:hover {
+  background-color: #f7f7f7;
+}
+
+.category-pill.active {
+  background-color: #222;
+  color: white;
+  border-color: #222;
+}

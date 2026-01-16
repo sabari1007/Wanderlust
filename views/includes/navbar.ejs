@@ -1,24 +1,28 @@
 <style>
+
     .search-btn {
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
     background-color: #fe424d;
     color: white;
-    border-radius: 25px;
-    padding: 0 1rem 0 1rem;
-    
+    border: none;
+    transition: background-color 0.2s ease;
+    }
+
+    .search-btn:hover {
+    background-color: #e63b45;
     }
 
     .search-inp {
-    border-radius: 25px;
-    padding: 0.5rem 3rem 0.5rem 3rem;
+    border-radius: 999px;
+    padding: 0.55rem 1rem;
+    font-size: 0.9rem;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
-    .navbar {
-        height: 5rem;
-        background-color: white;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+    .search-inp:focus {
+    border-color: #fe424d;
+    box-shadow: 0 0 0 2px rgba(254, 66, 77, 0.25);
     }
 
 </style>
