@@ -2,8 +2,32 @@ const Listing = require('../models/listing');
 
 //index route
 module.exports.index = async (req, res) => {
-	const allListings = await Listing.find({});
-	res.render('listings/index.ejs', { allListings });
+	const { q } = req.query;
+	const sort = req.query.sort || '';
+
+	let query = {};
+
+	// Search logic (safe even if q is undefined)
+	if (q) {
+		query.title = { $regex: q, $options: 'i' };
+	}
+
+	let listingsQuery = Listing.find(query);
+
+	// Sorting logic
+	if (sort === 'price_asc') {
+		listingsQuery = listingsQuery.sort({ price: 1 });
+	} else if (sort === 'price_desc') {
+		listingsQuery = listingsQuery.sort({ price: -1 });
+	}
+
+	const allListings = await listingsQuery;
+
+	res.render('listings/index.ejs', {
+		allListings,
+		searchQuery: q,
+		sort,
+	});
 };
 
 //new route
@@ -84,5 +108,6 @@ module.exports.searchListings = async (req, res) => {
 	res.render('listings/index', {
 		allListings: listings,
 		searchQuery: null,
+		sort,
 	});
 };

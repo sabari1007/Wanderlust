@@ -137,6 +137,29 @@
       </div>
   <% } %>
 
+    <!-- SORT DROPDOWN -->
+<div class="d-flex mb-3">
+  <form method="GET" action="/listings" class="sort-form ms-auto">
+    <% if (searchQuery) { %>
+      <input type="hidden" name="q" value="<%= searchQuery %>">
+    <% } %>
+
+    <select name="sort" class="form-select sort-select" onchange="this.form.submit()">
+      <option value="">Sort by</option>
+      <option value="price_asc" <%= sort === 'price_asc' ? 'selected' : '' %>>
+        Price: Low to High
+      </option>
+      <option value="price_desc" <%= sort === 'price_desc' ? 'selected' : '' %>>
+        Price: High to Low
+      </option>
+      <option value="rating" <%= sort === 'rating' ? 'selected' : '' %>>
+        Rating
+      </option>
+    </select>
+  </form>
+</div>
+
+
 <!-- card from bootstrap  -->
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
   <% for(let listing of allListings) { %>
@@ -148,6 +171,9 @@
         alt="listing_image"
         loading="lazy"
       />
+        <div class="wishlist-icon">
+          <i class="fa-regular fa-heart"></i>
+        </div>
       <div class="card-img-overlay">a</div>
       <div class="card-body">
         <p class="card-title mb-1">
@@ -209,6 +235,19 @@
       valueEl.textContent = toggle.checked
         ? Number(gst).toLocaleString("en-IN")
         : Number(base).toLocaleString("en-IN");
+    });
+  });
+</script>
+
+<script>
+  document.querySelectorAll(".wishlist-icon").forEach(icon => {
+    icon.addEventListener("click", (e) => {
+      e.preventDefault(); // prevent link navigation
+      icon.classList.toggle("active");
+
+      const heart = icon.querySelector("i");
+      heart.classList.toggle("fa-regular");
+      heart.classList.toggle("fa-solid");
     });
   });
 </script>

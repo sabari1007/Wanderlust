@@ -269,3 +269,33 @@ input:checked + .slider:before {
   gap: 0.6rem;
   white-space: nowrap;
 }
+
+.wishlist-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: white;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.wishlist-icon i {
+  color: #fe424d;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.wishlist-icon:hover i {
+  transform: scale(1.15);
+}
+
+.wishlist-icon.active i {
+  font-weight: 900;
+}
