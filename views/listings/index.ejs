@@ -12,29 +12,38 @@
     margin-right: 1rem;
     margin-top: 1rem;
     opacity: 0.7;
+    cursor: pointer;
   }
 
   .filter:hover {
     opacity: 1;
-    cursor: pointer;
     color: black;
   }
-  
-  .tax-info {
-    display: none;
+
+  .listing-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
   }
 
-  .tax-switch {
-    border: 1px solid black;
-    border-radius:  1rem;
-    height: 3rem;
-    padding: 1rem;
-    margin-left: 5rem;
-    align-items: center;
-    display: flex;
+  .listing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
   }
-  
-    .card-title {
+
+  .wishlist-icon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    z-index: 10;
+    font-size: 1.2rem;
+    color: white;
+  }
+
+  .wishlist-icon.active {
+    color: red;
+  }
+
+  .card-title {
     font-size: 1rem;
     font-weight: 600;
   }
@@ -44,113 +53,99 @@
     color: #717171;
   }
 
-  .card-meta .dot {
-    margin: 0 4px;
-  }
-
   .card-price {
     font-size: 0.95rem;
     font-weight: 600;
-    color: #000;
   }
 
   .per-night {
     font-size: 0.85rem;
-    font-weight: 400;
     color: #717171;
   }
 
-  .tax-info {
-    font-size: 0.75rem;
-    color: #999;
+  .price-toggle {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-
 </style>
 
+<!-- FILTER BAR -->
 <div id="filters">
-      <div class="filter">
-        <div><i class="fa-solid fa-fire"></i></div>
-        <p>Trending</p>
-      </div>
-
-      <div class="filter">
-        <div><i class="fa-solid fa-bed"></i></div>
-        <p>Rooms</p>
-      </div>
-
-      <div class="filter">
-        <div><i class="fa-solid fa-igloo"></i></div>
-        <p>Domes</p>
-      </div>
-
-      <div class="filter">
-        <div><i class="fa-solid fa-mountain-city"></i></div>
-        <p>Iconic Cities</p>
-      </div>
-
-      <div class="filter">
-        <div><i class="fa-brands fa-fort-awesome"></i></div>
-        <p>Castles</p>
-      </div>
-
-      <div class="filter">
-        <div><i class="fa-solid fa-mountain-sun"></i></i></div>
-        <p>Mountain Views</p>
-      </div>
-
-      <div class="filter">
-        <div><i class="fa-solid fa-tent"></i></div>
-        <p>Camping</p>
-      </div>
-
-      <div class="filter">
-        <div><i class="fa-solid fa-person-swimming"></i></div>
-        <p>Amazing Nature</p>
-      </div>
-
-      <div class="filter">
-        <div><i class="fa-solid fa-tractor"></i></div>
-        <p>Farms</p>
-      </div>
-
-      <div class="filter">
-        <div><i class="fa-solid fa-snowflake"></i></div>
-        <p>Arctic</p>
-      </div>
-
-      <div class="filter">
-        <div><i class="fa-solid fa-ship"></i></div>
-        <p>Boats</p>
-      </div>
-      <div class="price-toggle">
-        <label class="switch">
-          <input type="checkbox" id="gstToggle">
-          <span class="slider"></span>
-        </label>
-        <span class="toggle-text">Show price with GST</span>
-      </div>
+  <div class="filter"><i class="fa-solid fa-fire"></i><p>Trending</p></div>
+  <div class="filter"><i class="fa-solid fa-bed"></i><p>Rooms</p></div>
+  <div class="filter"><i class="fa-solid fa-igloo"></i><p>Domes</p></div>
+<div class="filter">
+  <div><i class="fa-solid fa-person-swimming"></i></div>
+  <p>Amazing pools</p>
 </div>
 
-  <% if (allListings.length === 0) { %>
-      <div class="alert alert-warning text-center">
-          No listings found for your search.
-      </div>
-  <% } %>
+<div class="filter">
+  <div><i class="fa-solid fa-tree"></i></div>
+  <p>Nature</p>
+</div>
 
-    <!-- SORT DROPDOWN -->
-<div class="d-flex mb-3">
-  <form method="GET" action="/listings" class="sort-form ms-auto">
+<div class="filter">
+  <div><i class="fa-solid fa-tractor"></i></div>
+  <p>Farms</p>
+</div>
+
+<div class="filter">
+  <div><i class="fa-solid fa-snowflake"></i></div>
+  <p>Arctic</p>
+</div>
+
+<div class="filter">
+  <div><i class="fa-solid fa-ship"></i></div>
+  <p>Boats</p>
+</div>
+
+<div class="filter">
+  <div><i class="fa-solid fa-umbrella-beach"></i></div>
+  <p>Beachfront</p>
+</div>
+
+<div class="filter">
+  <div><i class="fa-solid fa-mountain-sun"></i></div>
+  <p>Mountain views</p>
+</div>
+
+<div class="filter">
+  <div><i class="fa-solid fa-fire-burner"></i></div>
+  <p>Cabins</p>
+</div>
+
+
+
+
+  <!-- GST TOGGLE -->
+  <div class="price-toggle">
+    <input type="checkbox" id="gstToggle" aria-label="Toggle GST price">
+    <span class="toggle-text">Show price with GST</span>
+  </div>
+</div>
+
+<% if (allListings.length === 0) { %>
+  <div class="alert alert-warning text-center mt-3">
+    No listings found.
+  </div>
+<% } %>
+
+<!-- SORT -->
+<div class="d-flex mb-3 mt-3">
+  <form method="GET" action="/listings" class="ms-auto">
     <% if (searchQuery) { %>
       <input type="hidden" name="q" value="<%= searchQuery %>">
     <% } %>
 
-    <select name="sort" class="form-select sort-select" onchange="this.form.submit()">
+    <select name="sort" class="form-select" onchange="this.form.submit()">
       <option value="">Sort by</option>
       <option value="price_asc" <%= sort === 'price_asc' ? 'selected' : '' %>>
-        Price: Low to High
+        Price: Low → High
       </option>
       <option value="price_desc" <%= sort === 'price_desc' ? 'selected' : '' %>>
-        Price: High to Low
+        Price: High → Low
       </option>
       <option value="rating" <%= sort === 'rating' ? 'selected' : '' %>>
         Rating
@@ -159,90 +154,79 @@
   </form>
 </div>
 
-
-<!-- card from bootstrap  -->
+<!-- LISTINGS -->
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-  <% for(let listing of allListings) { %>
-  <a href="/listings/<%= listing._id%>" class = "listing-link">
-    <div class="listing-card col">
-      <img 
-        src="<%= listing.image.url %>" 
-        class="card-img-top" 
-        alt="listing_image"
-        loading="lazy"
-      />
+  <% for (let listing of allListings) { %>
+
+    <div class="col mb-4">
+      <div class="listing-card">
+
+        <!-- WISHLIST -->
         <div class="wishlist-icon">
           <i class="fa-regular fa-heart"></i>
         </div>
-      <div class="card-img-overlay">a</div>
-      <div class="card-body">
-        <p class="card-title mb-1">
-          <b><%= listing.title %></b>
-        </p>
 
-        <p class="card-meta mb-1">
-          ⭐ <%= listing.rating || "4.8" %>
-          <span class="dot">·</span>
-          📍 <%= listing.location %>
-        </p>
+        <a href="/listings/<%= listing._id %>" class="listing-link text-decoration-none text-dark">
+          <img
+            src="<%= listing.image.url %>"
+            class="card-img-top"
+            alt="listing image"
+            loading="lazy"
+          />
 
-        <p class="card-price mb-0"
-          data-base="<%= listing.price %>"
-          data-gst="<%= Math.round(listing.price * 1.18) %>">
-          &#8377;
-          <span class="price-value">
-            <%= listing.price.toLocaleString("en-IN") %>
-          </span>
-          <span class="per-night">/ night</span>
-        </p>
+          <div class="card-body">
+            <p class="card-title mb-1"><%= listing.title %></p>
 
+            <p class="card-meta mb-1">
+              ⭐ <%= listing.rating || "4.8" %> · 📍 <%= listing.location %>
+            </p>
+
+            <p
+              class="card-price"
+              data-base="<%= listing.price %>"
+              data-gst="<%= Math.round(listing.price * 1.18) %>">
+
+              ₹ <span class="price-value">
+                <%= listing.price.toLocaleString("en-IN") %>
+              </span>
+
+              <span class="per-night">/ night</span>
+            </p>
+          </div>
+        </a>
       </div>
     </div>
-    </a>
-    <% } %>
+
+  <% } %>
 </div>
 
-
-
-
-<script>
-  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
-  taxSwitch.addEventListener("click", () => {
-    let taxInfo = document.getElementsByClassName("tax-info");
-
-    for ( info of taxInfo) {
-
-      if(info.style.display != "inline") {
-        info.style.display = "inline";
-      } else {
-        info.style.display = "none";
-      }     
-    }
-  });
-</script>
-
-
+<!-- GST SCRIPT -->
 <script>
   const toggle = document.getElementById("gstToggle");
+  const text = document.querySelector(".toggle-text");
 
   toggle.addEventListener("change", () => {
     document.querySelectorAll(".card-price").forEach(priceEl => {
-      const valueEl = priceEl.querySelector(".price-value");
-
       const base = priceEl.dataset.base;
       const gst = priceEl.dataset.gst;
+      const valueEl = priceEl.querySelector(".price-value");
 
       valueEl.textContent = toggle.checked
         ? Number(gst).toLocaleString("en-IN")
         : Number(base).toLocaleString("en-IN");
     });
+
+    text.textContent = toggle.checked
+      ? "Showing price with GST"
+      : "Show price with GST";
   });
 </script>
 
+<!-- WISHLIST SCRIPT -->
 <script>
   document.querySelectorAll(".wishlist-icon").forEach(icon => {
-    icon.addEventListener("click", (e) => {
-      e.preventDefault(); // prevent link navigation
+    icon.addEventListener("click", e => {
+      e.stopPropagation();
       icon.classList.toggle("active");
 
       const heart = icon.querySelector("i");

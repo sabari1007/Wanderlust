@@ -23,14 +23,14 @@ router
 router.get('/new', isLoggedIn, listingController.renderNewForm);
 
 router.get('/search', async (req, res) => {
-	const { q } = req.query;
+	const { q, sort } = req.query;
 
 	if (!q) {
 		req.flash('error', 'Please enter a search term');
 		return res.redirect('/listings');
 	}
 
-	const listings = await Listing.find({
+	let listingsQuery = Listing.find({
 		$or: [
 			{ location: { $regex: q, $options: 'i' } },
 			{ country: { $regex: q, $options: 'i' } },
@@ -38,7 +38,22 @@ router.get('/search', async (req, res) => {
 		],
 	});
 
-	res.render('listings/index.ejs', { allListings: listings, searchQuery: q });
+	// ✅ sorting works with search
+	if (sort === 'price_asc') {
+		listingsQuery = listingsQuery.sort({ price: 1 });
+	} else if (sort === 'price_desc') {
+		listingsQuery = listingsQuery.sort({ price: -1 });
+	} else if (sort === 'rating') {
+		listingsQuery = listingsQuery.sort({ rating: -1 });
+	}
+
+	const listings = await listingsQuery;
+
+	res.render('listings/index.ejs', {
+		allListings: listings,
+		searchQuery: q,
+		sort, // ✅ now defined
+	});
 });
 
 router
