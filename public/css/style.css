@@ -273,27 +273,35 @@ input:checked + .slider:before {
 .wishlist-icon {
   position: absolute;
   top: 12px;
-  right: 12px;
-  background: white;
-  border-radius: 50%;
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  right: 15px;
+  font-size: 1.3rem;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
   z-index: 10;
+  cursor: pointer;
+}
+
+/* show on hover */
+.listing-card:hover .wishlist-icon {
+  opacity: 2;
+  transform: scale(1.1);
+}
+
+/* liked state */
+.wishlist-icon.active {
+  color: red;
 }
 
 .wishlist-icon i {
   color: #fe424d;
   font-size: 1rem;
   transition: transform 0.2s ease;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
 }
 
 .wishlist-icon:hover i {
-  transform: scale(1.15);
+  transform: scale(1.5);
 }
 
 .wishlist-icon.active i {

@@ -2,31 +2,35 @@ const Listing = require('../models/listing');
 
 //index route
 module.exports.index = async (req, res) => {
-	const { q } = req.query;
-	const sort = req.query.sort || '';
+	const { q, sort, category } = req.query;
 
 	let query = {};
 
-	// Search logic (safe even if q is undefined)
 	if (q) {
-		query.title = { $regex: q, $options: 'i' };
+		query.$or = [
+			{ location: { $regex: q, $options: 'i' } },
+			{ country: { $regex: q, $options: 'i' } },
+			{ title: { $regex: q, $options: 'i' } },
+		];
 	}
 
-	let listingsQuery = Listing.find(query);
-
-	// Sorting logic
-	if (sort === 'price_asc') {
-		listingsQuery = listingsQuery.sort({ price: 1 });
-	} else if (sort === 'price_desc') {
-		listingsQuery = listingsQuery.sort({ price: -1 });
+	if (category) {
+		query.category = category;
 	}
 
-	const allListings = await listingsQuery;
+	let listings = Listing.find(query);
 
-	res.render('listings/index.ejs', {
+	if (sort === 'price_asc') listings = listings.sort({ price: 1 });
+	if (sort === 'price_desc') listings = listings.sort({ price: -1 });
+	if (sort === 'rating') listings = listings.sort({ rating: -1 });
+
+	const allListings = await listings;
+
+	res.render('listings/index', {
 		allListings,
-		searchQuery: q,
+		q,
 		sort,
+		category,
 	});
 };
 
