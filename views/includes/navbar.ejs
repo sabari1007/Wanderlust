@@ -44,16 +44,23 @@
             </div>
 
         <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search" action="/listings/search" method="GET">
+        <form class="d-flex position-relative" role="search" action="/listings/search" method="GET">
         <input 
-        class="form-control me-2 search-inp"
-        type="search"
-        name="q"
-        placeholder="Search destinations"
-        value="<%= searchQuery ? searchQuery : '' %>"
+            class="form-control me-2 search-inp"
+            type="search"
+            id="liveSearch"
+            name="q"
+            placeholder="Search destinations"
+            autocomplete="off"
+            value="<%= searchQuery ? searchQuery : '' %>"
         >
+
         <button class="btn search-btn" type="submit">Search</button>
+
+        <!-- LIVE RESULTS -->
+        <div id="searchResults" class="live-search-results"></div>
         </form>
+
 
         </div>
             <div class="navbar-nav ms-auto">
