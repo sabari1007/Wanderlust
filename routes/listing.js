@@ -56,6 +56,27 @@ router.get('/search', async (req, res) => {
 	});
 });
 
+router.get(
+	'/api/search',
+	wrapAsync(async (req, res) => {
+		const { q } = req.query;
+
+		if (!q || q.trim() === '') {
+			return res.json([]);
+		}
+
+		const listings = await Listing.find({
+			$or: [
+				{ title: { $regex: q, $options: 'i' } },
+				{ location: { $regex: q, $options: 'i' } },
+				{ country: { $regex: q, $options: 'i' } },
+			],
+		}).limit(6);
+
+		res.json(listings);
+	})
+);
+
 router
 	.route('/:id')
 	.get(wrapAsync(listingController.ShowListing)) //show route

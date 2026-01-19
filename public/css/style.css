@@ -307,3 +307,37 @@ input:checked + .slider:before {
 .wishlist-icon.active i {
   font-weight: 900;
 }
+
+.live-search-results {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.18);
+  z-index: 1000;
+  max-height: 420px;
+  overflow-y: auto;
+  display: none;
+}
+
+.live-search-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.live-search-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.live-search-item:hover {
+  background: #f7f7f7;
+}
