@@ -8,23 +8,26 @@
 
 > Because we like our stacks like we like our adventures – **full and fast**.
 
-- **Backend:** Node.js + Express.js  
-- **Frontend:** HTML, CSS, Bootstrap  
-- **Database:** MongoDB  
-- **Authentication:** Passport.js  
+- **Backend:** Node.js + Express.js
+- **Frontend:** HTML, CSS, Bootstrap
+- **Database:** MongoDB
+- **Authentication:** Passport.js
 - **Special Sauce:** EJS Templates, Express Router, and pure JavaScript magic ✨
 
 ---
 
-## 🧭 What’s It Do?
+## 🧭 Features
 
-Wanderlust lets users:
-- 🔐 **Sign up / Log in** with secure authentication
-- ✍️ **Create** your travel stories
-- 🛠 **Update** them when you realize you forgot that one beach photo
-- 🗑 **Delete** that trip to your hometown you're not proud of
-- 📱 Browse on any device — it’s fully responsive!
+Wanderlust allows users to:
 
+- 🔐 Secure sign up and login
+- 🏠 Create travel listings
+- ✏️ Edit listings anytime
+- 🗑 Delete listings when no longer needed
+- ⭐ Add reviews and ratings
+- 🔍 Search and sort destinations
+- 🗺 View listing locations on interactive maps
+- 📱 Fully responsive across devices
 
 <img width="1280" height="714" alt="Screenshot 2025-09-05 at 9 28 27 AM" src="https://github.com/user-attachments/assets/aad79604-013c-4407-9884-5456ac6b5b7c" />
 
@@ -37,6 +40,7 @@ Wanderlust lets users:
 ## 🌟 Why Wanderlust?
 
 Because travel is meant to be shared. With Wanderlust:
+
 - No clutter. Just clean, intuitive UI.
 - Plan trips, explore hidden gems, and document every step.
 - All your adventures, one cozy platform.
@@ -61,3 +65,4 @@ mongod
 
 # 4. Start the server
 node app.js
+```
