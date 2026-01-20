@@ -341,3 +341,11 @@ input:checked + .slider:before {
 .live-search-item:hover {
   background: #f7f7f7;
 }
+
+
+#map {
+  height: 400px;
+  width: 100%;
+  border-radius: 12px;
+  margin-top: 10px;
+}
