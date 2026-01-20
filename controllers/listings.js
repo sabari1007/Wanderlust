@@ -34,6 +34,45 @@ module.exports.index = async (req, res) => {
 	});
 };
 
+//MAPS
+const axios = require('axios');
+
+module.exports.createListing = async (req, res) => {
+	const { location, country } = req.body.listing;
+
+	const geoRes = await axios.get(
+		'https://geocoding-api.open-meteo.com/v1/search',
+		{
+			params: {
+				name: location,
+				count: 1,
+				language: 'en',
+				format: 'json',
+			},
+		}
+	);
+
+	const listing = new Listing(req.body.listing);
+
+	if (geoRes.data && geoRes.data.results && geoRes.data.results.length > 0) {
+		const lat = geoRes.data.results[0].latitude;
+		const lng = geoRes.data.results[0].longitude;
+
+		listing.geometry = {
+			type: 'Point',
+			coordinates: [lat, lng],
+		};
+	} else {
+		listing.geometry = {
+			type: 'Point',
+			coordinates: [20.5937, 78.9629], // India center fallback
+		};
+	}
+
+	await listing.save();
+	res.redirect(`/listings/${listing._id}`);
+};
+
 //new route
 module.exports.renderNewForm = (req, res) => {
 	res.render('listings/new.ejs');
